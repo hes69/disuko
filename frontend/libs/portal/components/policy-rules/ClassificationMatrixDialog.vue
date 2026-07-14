@@ -56,6 +56,8 @@ const dialogConfig = computed(
   }),
 );
 
+const tableHeight = computed(() => 'calc(100dvh - 400px)');
+
 const open = async () => {
   isVisible.value = true;
   try {
