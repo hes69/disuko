@@ -56,8 +56,6 @@ const dialogConfig = computed(
   }),
 );
 
-const tableHeight = computed(() => 'calc(100dvh - 400px)');
-
 const open = async () => {
   isVisible.value = true;
   try {
@@ -73,7 +71,7 @@ defineExpose({open});
 
 <template>
   <v-dialog v-model="isVisible" scrollable width="95vw" max-width="95vw">
-    <DialogLayout :config="dialogConfig" @close="isVisible = false">
+    <DialogLayout :config="dialogConfig" @close="isVisible = false" v-slot="{tableHeight}">
       <div class="mb-2 flex justify-end">
         <DSearchField v-model="search" />
       </div>

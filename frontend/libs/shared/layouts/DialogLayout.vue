@@ -3,6 +3,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <script setup lang="ts">
+import {computed} from 'vue';
 import {useI18n} from 'vue-i18n';
 
 const emit = defineEmits(['close', 'secondaryAction', 'primaryAction']);
@@ -16,9 +17,15 @@ export interface DialogLayoutConfig {
   iconColor?: string; // optional icon color override
 }
 
-defineProps<{
-  config: DialogLayoutConfig;
-}>();
+const props = withDefaults(
+  defineProps<{
+    config: DialogLayoutConfig;
+    tableHeightOffset?: number;
+  }>(),
+  {tableHeightOffset: 400},
+);
+
+const tableHeight = computed(() => `calc(100dvh - ${props.tableHeightOffset}px)`);
 
 const {t} = useI18n();
 </script>
@@ -39,7 +46,7 @@ const {t} = useI18n();
     </Stack>
 
     <v-card-text class="p-0 pt-8">
-      <slot></slot>
+      <slot :tableHeight="tableHeight"></slot>
     </v-card-text>
 
     <Stack direction="row" class="pt-8" align="center">
