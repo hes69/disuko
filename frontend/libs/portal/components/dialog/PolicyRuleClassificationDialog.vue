@@ -123,7 +123,12 @@ defineExpose({open});
 
 <template>
   <v-dialog v-model="isVisible" scrollable width="800">
-    <DialogLayout :config="dialogConfig" @primary-action="doDialogAction" @secondary-action="close" @close="close">
+    <DialogLayout
+      :config="dialogConfig"
+      @primary-action="doDialogAction"
+      @secondary-action="close"
+      @close="close"
+      v-slot="{tableHeight}">
       <v-form ref="dialog" @submit.prevent="doDialogAction">
         <Stack>
           <v-text-field
@@ -135,7 +140,7 @@ defineExpose({open});
             variant="outlined"
             density="compact" />
 
-          <v-table density="compact" class="striped-table mt-4" fixed-header height="400">
+          <v-table density="compact" class="striped-table mt-4" fixed-header :height="tableHeight">
             <thead>
               <tr>
                 <th class="w-[250px] text-left">{{ t('COL_CLASSIFICATION') }}</th>
